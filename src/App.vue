@@ -1,28 +1,46 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="container">
+      <shorty-logo></shorty-logo>
+      <shorty-add></shorty-add>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ShortyLogo from './components/ShortyLogo.vue'
+import ShortyAdd from './components/ShortyAdd.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ShortyLogo,
+    ShortyAdd
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    background-color: #F6F6F6;
+    color: #525253;
+    font-family: 'Lato', sans-serif;
+  }
+
+  .container {
+    margin: 0 auto;
+    max-width: 960px;
+    border: 1px solid red;
+  }
+
 </style>
+
+
+
