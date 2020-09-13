@@ -10,10 +10,13 @@
                  ></textarea>
                  <button class="add__btn" @click="addNote"><i class="fas fa-plus"></i></button>
             </form>
-            <shorty-item v-for="note in notes" :key="note.id" v-bind:note="note">
+            <div class="item__wrapper">
+                <shorty-item v-for="note in notes" :key="note.id" v-bind:note="note">
                 <!-- <div>{{ note.text }} </div> -->
 
             </shorty-item>
+            </div>
+            
         </div>
     </section>
 </template>
@@ -103,6 +106,17 @@ export default {
                 
             }
 
+        }
+    }
+
+    .item {
+        &__wrapper {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            border: 1px solid red;
+            margin: 3rem 1%;
         }
     }
 </style>
