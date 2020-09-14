@@ -7,6 +7,7 @@
                  cols="28"
                  placeholder="// Write something you want to remember..."
                  v-model="newNote"
+                 @keyup.enter="addNote"
                  ></textarea>
                  <button class="add__btn" @click="addNote"><i class="fas fa-plus"></i></button>
             </form>
@@ -114,9 +115,10 @@ export default {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            justify-content: space-between;
+            // justify-content: space-between;
             border: 1px solid red;
-            margin: 3rem 1%;
+            margin: 3rem 1rem;
+            
         }
     }
 </style>
