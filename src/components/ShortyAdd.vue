@@ -50,7 +50,11 @@ export default {
     },
     methods: {
         addNote() {
-       
+            if(this.newNote.trim().length == 0) {
+                alert("You have to write something...");
+                return;
+                
+            }
             this.notes.push({
                 id: this.noteId,
                 text: this.newNote,
@@ -115,7 +119,7 @@ export default {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            // justify-content: space-between;
+            justify-content: center;
             border: 1px solid red;
             margin: 3rem 1rem;
             

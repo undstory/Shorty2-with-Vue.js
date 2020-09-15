@@ -8,8 +8,8 @@
             <div class="item__down">
                  <span class="item__date">{{ currentDate | niceDate }}</span>
                  <div class="item__btns">
-                     <button class="item__btn--archive"><i class="fas fa-archive"></i></button>
-                     <button class="item__btn--remove"><i class="fas fa-trash"></i></button>
+                     <button class="item__btn--archive"><i class="fas fa-plus-circle item__archive"></i></i></button>
+                     <button class="item__btn--remove"><i class="fas fa-trash item__remove"></i></button>
                  </div>
             </div>
            
@@ -42,9 +42,8 @@ export default {
 
 <style lang="scss">
     .item {
-        background-color: #365A66;
-        color: #C3D6DC;
-        border: 1px solid red;
+        background-color: #2d7461;
+        color: #E6E5E3;
         width: 29%;
         height: 15rem;
         margin: 1rem;
@@ -54,27 +53,79 @@ export default {
         justify-content: space-between;
 
         &__text {
-            border: 1px solid pink;
             display: inline-block;
+            font-size: 1.2rem;
+            margin-right: .5rem;
+            margin-top: 2rem;
         }
 
         &__bell {
-           
             display: inline-block;
-            color: yellow;
-            border: 1px solid pink; 
+            color: #B3B20F;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+
+            &:hover {
+                color: #F04F33;
+            }
         }
 
         &__up {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            align-items: flex-start;
+            margin: 1rem;
+            margin-top: 0;  
+        }
+
+        &__btn {
+           
+
+            &--important, &--archive, &--remove {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+
+                &:focus {
+                    border: none;
+                    outline: none;
+                }
+            }
         }
 
         &__down {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            align-items: flex-end;
+            margin: 1rem;
+        }
+
+        &__archive, &__remove {
+            font-size: 1.5rem;
+            padding-left: .3rem;
+        }
+
+        &__archive {
+            color: #E7DFD5;
+
+            &:hover {
+                
+                color: #D76B8B;
+            }
+        }
+
+        &__remove {
+            color: #AF2024;
+
+            &:hover {
+                
+                color: #F15822;
+            }
+            
         }
     }
+
+
 </style>
