@@ -12,7 +12,7 @@
                  <button class="add__btn" @click="addNote"><i class="fas fa-plus"></i></button>
             </form>
             <div class="item__wrapper">
-                <shorty-item v-for="note in notes" :key="note.id" v-bind:note="note">
+                <shorty-item v-for="(note, index) in notes" :key="note.id" v-bind:note="note" v-bind:index="index" @removedItem="removeItem(index)">
                 <!-- <div>{{ note.text }} </div> -->
 
             </shorty-item>
@@ -63,6 +63,9 @@ export default {
 
             this.newNote = '',
             this.noteId++;
+        },
+        removeItem(index) {
+            this.notes.splice(index, 1);
         }
     }
 }

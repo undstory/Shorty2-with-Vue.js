@@ -9,7 +9,7 @@
                  <span class="item__date">{{ currentDate | niceDate }}</span>
                  <div class="item__btns">
                      <button class="item__btn--archive"><i class="fas fa-plus-circle item__archive"></i></i></button>
-                     <button class="item__btn--remove"><i class="fas fa-trash item__remove"></i></button>
+                     <button class="item__btn--remove" @click="removeItem(index)"><i class="fas fa-trash item__remove"></i></button>
                  </div>
             </div>
            
@@ -24,6 +24,10 @@ export default {
         note: {
             type: Object,
             require: true
+        },
+        index: {
+            type: Number,
+            require: true
         }
     },
     data() {
@@ -35,6 +39,11 @@ export default {
     filters: {
         niceDate(value) {
             return moment(value).format('ll');
+        }
+    },
+    methods: {
+        removeItem(index) {
+            this.$emit('removedItem', index);
         }
     }
 }
