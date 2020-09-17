@@ -39,12 +39,12 @@ export default {
                 {
                 'id': 1,
                 'text': 'Zajebiście ciekawa rzecz',
-                'deleted': false
+                'editing': false
             }, 
                 {
                 'id': 2,
                 'text': "Kolejna wykurwista rzecz",
-                'deleted': false
+                'editing': false
             }]
         }
     },
@@ -58,12 +58,13 @@ export default {
             this.notes.push({
                 id: this.noteId,
                 text: this.newNote,
-                deleted: false
+                editing: false
             })
 
             this.newNote = '',
             this.noteId++;
         },
+        
         removeItem(index) {
             this.notes.splice(index, 1);
         }
@@ -88,8 +89,6 @@ export default {
             background-color: #E0DFE0;
             border: none;
             border-radius: 10px;
-
-            
         }
 
         &__btn {
@@ -111,9 +110,7 @@ export default {
 
             &:hover {
                 background-color: #6C446B
-                
             }
-
         }
     }
 
@@ -125,7 +122,6 @@ export default {
             justify-content: center;
             border: 1px solid red;
             margin: 3rem 1rem;
-            
         }
     }
 </style>

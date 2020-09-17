@@ -2,13 +2,17 @@
     
         <div class="item">
             <div class="item__up">
-                <div class="item__text">{{ text }}</div>
+                <template>
+                    <div class="item__text" @dblclick="editItem" v-if="!editing">{{ text }}</div>
+                    <textarea class="item__text--edit" v-else></textarea>
+                </template>
+                
                 <button class="item__btn--important"><i class="fas fa-bell item__bell"></i></button>
             </div>
             <div class="item__down">
                  <span class="item__date">{{ currentDate | niceDate }}</span>
                  <div class="item__btns">
-                     <button class="item__btn--archive"><i class="fas fa-plus-circle item__archive"></i></i></button>
+                     <button class="item__btn--archive"><i class="fas fa-plus-circle item__archive"></i></button>
                      <button class="item__btn--remove" @click="removeItem(index)"><i class="fas fa-trash item__remove"></i></button>
                  </div>
             </div>
@@ -32,7 +36,9 @@ export default {
     },
     data() {
         return {
+           id: this.note.id,
            text: this.note.text,
+           editing: this.note.editing,
            currentDate: new Date()
         }
     },
@@ -44,6 +50,10 @@ export default {
     methods: {
         removeItem(index) {
             this.$emit('removedItem', index);
+        },
+
+        editItem() {
+            this.editing = true;
         }
     }
 }
