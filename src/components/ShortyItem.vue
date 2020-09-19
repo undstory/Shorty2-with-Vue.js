@@ -4,7 +4,12 @@
             <div class="item__up">
                 <template>
                     <div class="item__text" @dblclick="editItem" v-if="!editing">{{ text }}</div>
-                    <textarea class="item__text--edit" v-else></textarea>
+                    <textarea wrap="on" class="item__text--edit" v-else
+                    v-model="text" rows="5" cols="15" 
+                    @blur="doneEdit"
+                    @keyup.enter="doneEdit"
+                    @keyup.esc="cancelEdit"
+                    v-focus maxlength="50"></textarea>
                 </template>
                 
                 <button class="item__btn--important"><i class="fas fa-bell item__bell"></i></button>
@@ -39,7 +44,15 @@ export default {
            id: this.note.id,
            text: this.note.text,
            editing: this.note.editing,
+           beforeEdit: '',
            currentDate: new Date()
+        }
+    },
+    directives: {
+        focus: {
+            inserted: function (el) {
+            el.focus()
+            }
         }
     },
     filters: {
@@ -53,7 +66,25 @@ export default {
         },
 
         editItem() {
+            this.beforeEdit = this.text;
             this.editing = true;
+        },
+
+        doneEdit() {
+            this.editing = false;
+            this.$emit('finishedEdit', {
+                'index': this.index,
+                'note': {
+                    id: this.id,
+                    text: this.text,
+                    editing: this.editing
+                }
+            })
+        },
+
+        cancelEdit() {
+            this.text = this.beforeEdit;
+            this.editing = false;
         }
     }
 }
@@ -61,7 +92,7 @@ export default {
 
 <style lang="scss">
     .item {
-        background-color: #2d7461;
+        background-color: lighten(#2d7461, 15);
         color: #E6E5E3;
         width: 29%;
         height: 15rem;
@@ -76,6 +107,23 @@ export default {
             font-size: 1.2rem;
             margin-right: .5rem;
             margin-top: 2rem;
+            max-width: 80%;
+            overflow-wrap: break-word;
+
+            &--edit {
+                margin-top: 1.5rem;
+                font-size: 1.4rem;
+                padding: .5rem;
+                background-color: lighten(#2d7461, 45);
+                border: 3px solid #AF2024;
+                overflow-wrap: break-word;
+    
+
+                &:focus {
+                    outline: none;
+                    
+                }
+            }
         }
 
         &__bell {
