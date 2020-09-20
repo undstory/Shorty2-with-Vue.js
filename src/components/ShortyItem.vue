@@ -1,6 +1,6 @@
 <template>
     
-        <div class="item">
+        <div class="item"  v-bind:class="{'item--active': important}" >
             <div class="item__up">
                 <template>
                     <div class="item__text" @dblclick="editItem" v-if="!editing">{{ text }}</div>
@@ -12,7 +12,8 @@
                     v-focus maxlength="50"></textarea>
                 </template>
                 
-                <button class="item__btn--important"><i class="fas fa-bell item__bell"></i></button>
+                <button class="item__btn--important" @click="thisIsImportant"
+                ><i class="fas fa-bell item__bell" v-bind:class="{'item__bell--active': important}"></i></button>
             </div>
             <div class="item__down">
                  <span class="item__date">{{ currentDate | niceDate }}</span>
@@ -44,6 +45,7 @@ export default {
            id: this.note.id,
            text: this.note.text,
            editing: this.note.editing,
+           important: this.note.important,
            beforeEdit: '',
            currentDate: new Date()
         }
@@ -77,7 +79,8 @@ export default {
                 'note': {
                     id: this.id,
                     text: this.text,
-                    editing: this.editing
+                    editing: this.editing,
+                    important: this.important
                 }
             })
         },
@@ -85,6 +88,21 @@ export default {
         cancelEdit() {
             this.text = this.beforeEdit;
             this.editing = false;
+        },
+
+        thisIsImportant() { 
+            this.important = !this.important;
+            console.log(this.important);
+            this.$emit('importantOrNot', {
+                'index': this.index,
+                'note': {
+                    id: this.id,
+                    text: this.text,
+                    editing: this.editing,
+                    important: this.important
+            }
+            } 
+            )
         }
     }
 }
@@ -101,6 +119,10 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+
+        &--active {
+            background-color: darken(#B3B20F, 10);
+        }
 
         &__text {
             display: inline-block;
@@ -132,8 +154,10 @@ export default {
             font-size: 1.5rem;
             margin-top: 1rem;
 
-            &:hover {
-                color: #F04F33;
+          
+
+            &--active {
+                color: #0033ff;
             }
         }
 

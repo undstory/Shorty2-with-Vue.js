@@ -13,7 +13,7 @@
             </form>
             <div class="item__wrapper">
                 <shorty-item v-for="(note, index) in notes" :key="note.id" v-bind:note="note" v-bind:index="index" @removedItem="removeItem(index)"
-                @finishedEdit="finishedEdit">
+                @finishedEdit="finishedEdit" @importantOrNot="importantOrNot">
                 <!-- <div>{{ note.text }} </div> -->
 
             </shorty-item>
@@ -41,12 +41,14 @@ export default {
                 {
                 'id': 1,
                 'text': 'Zajebiście ciekawa rzecz',
-                'editing': false
+                'editing': false,
+                'important': false
             }, 
                 {
                 'id': 2,
                 'text': "Kolejna wykurwista rzecz",
-                'editing': false
+                'editing': false,
+                'important': false
             }]
         }
     },
@@ -60,7 +62,8 @@ export default {
             this.notes.push({
                 id: this.noteId,
                 text: this.newNote,
-                editing: false
+                editing: false,
+                important: false
             })
 
             this.newNote = '',
@@ -72,6 +75,11 @@ export default {
         },
 
         finishedEdit(data) {
+            this.notes.splice(data.index, 1, data.note);
+        },
+
+        importantOrNot(data) {
+            
             this.notes.splice(data.index, 1, data.note);
         }
     }
