@@ -11,6 +11,23 @@
                  ></textarea>
                  <button class="add__btn" @click="addNote"><i class="fas fa-plus"></i></button>
             </form>
+            <div class="add__summary">
+                <h2>Summary:</h2>
+                <button class="add__btns add__btn--all">
+                    <span class="add__btns--info">All Notes</span>
+                    <span class="add__btns--how">{{ this.notes.length }}</span>
+                </button>
+                <button class="add__btns add__btn--important">
+                    <span class="add__btns--info">Important</span>
+                    <span class="add__btns--how">3</span>
+                </button>
+                <button class="add__btns add__btn--archive">
+                    <span class="add__btns--info">Archive</span>
+                    <span class="add__btns--how">8</span>
+                </button>
+               
+            </div>
+        </div>
             <div class="item__wrapper">
                 <shorty-item v-for="(note, index) in notes" :key="note.id" v-bind:note="note" v-bind:index="index" @removedItem="removeItem(index)"
                 @finishedEdit="finishedEdit" @importantOrNot="importantOrNot">
@@ -19,7 +36,7 @@
             </shorty-item>
             </div>
             
-        </div>
+        
     </section>
 </template>
 
@@ -79,8 +96,8 @@ export default {
         },
 
         importantOrNot(data) {
-            
             this.notes.splice(data.index, 1, data.note);
+            console.log(this.notes.length);
         }
     }
 }
@@ -95,11 +112,53 @@ export default {
             align-items: center;
         }
 
+        &__wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        &__summary {
+            margin-left: 1rem;
+            align-self: center;
+        }
+
+        &__btns {
+            padding: .5rem;
+            font-size: 1.2rem;
+            color: #175242;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-radius: 10px;
+            border: none;
+            background-color: #E0DFE0;
+            cursor: pointer;
+            margin: 1rem;
+            min-width: 8.5rem;
+
+            &:hover {
+                color: #E0DFE0;
+                background-color: #6C446B;
+            }
+
+            &--info, &--how {
+                display: block;
+                padding-bottom: .5rem;
+            }
+
+            &--info{
+                padding-top: .5rem;
+            }
+
+
+        }
+
         &__textarea {
             resize: none;
             padding: .8rem;
             font-size: 1.5rem;
             margin-bottom: 2rem;
+            margin-right: 1rem;
             background-color: #E0DFE0;
             border: none;
             border-radius: 10px;
@@ -134,7 +193,6 @@ export default {
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
-            border: 1px solid red;
             margin: 3rem 1rem;
         }
     }

@@ -37,7 +37,6 @@ export default {
   .container {
     margin: 0 auto;
     max-width: 960px;
-    border: 1px solid red;
   }
 
 </style>
