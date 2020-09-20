@@ -108,7 +108,7 @@ export default {
         margin: 5rem 0;
         &__form {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
         }
 
@@ -169,6 +169,7 @@ export default {
             border: none;
             background-color: #E0DFE0;
             cursor: pointer;
+            align-self: flex-start;
             
             i {
                 font-size: 2.5rem;
