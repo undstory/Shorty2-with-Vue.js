@@ -13,13 +13,13 @@
             </form>
             <div class="add__summary">
                 <h2>Summary:</h2>
-                <button class="add__btns add__btn--all">
+                <button class="add__btns add__btn--all" @click="filter = 'all'">
                     <span class="add__btns--info">All Notes</span>
                     <span class="add__btns--how">{{ this.notes.length }}</span>
                 </button>
-                <button class="add__btns add__btn--important">
+                <button class="add__btns add__btn--important" @click="filter = 'important'">
                     <span class="add__btns--info">Important</span>
-                    <span class="add__btns--how">3</span>
+                    <span class="add__btns--how">{{ howManyImportant }}</span>
                 </button>
                 <button class="add__btns add__btn--archive">
                     <span class="add__btns--info">Archive</span>
@@ -29,7 +29,7 @@
             </div>
         </div>
             <div class="item__wrapper">
-                <shorty-item v-for="(note, index) in notes" :key="note.id" v-bind:note="note" v-bind:index="index" @removedItem="removeItem(index)"
+                <shorty-item v-for="(note, index) in notesFiltered" :key="note.id" v-bind:note="note" v-bind:index="index" @removedItem="removeItem(index)"
                 @finishedEdit="finishedEdit" @importantOrNot="importantOrNot">
                 <!-- <div>{{ note.text }} </div> -->
 
@@ -52,6 +52,7 @@ export default {
     data() {
         return {
             newNote: '',
+            filter: "all",
             noteId: 3,
             // beforeEdit: '',
             notes: [
@@ -68,6 +69,22 @@ export default {
                 'important': false
             }]
         }
+    },
+
+    computed: {
+            notesFiltered() {
+                if(this.filter == 'all') {
+                    return this.notes;
+                } else if(this.filter == 'important') {
+                    return this.notes.filter(note => note.important);
+                }
+
+                return this.notes;
+            },
+
+            howManyImportant() {
+                return this.notes.filter(note => note.important).length;
+            }
     },
     methods: {
         addNote() {
@@ -86,6 +103,8 @@ export default {
             this.newNote = '',
             this.noteId++;
         },
+
+   
         
         removeItem(index) {
             this.notes.splice(index, 1);
