@@ -100,7 +100,7 @@ export default {
                     text: this.text,
                     editing: this.editing,
                     important: this.important
-            }
+                }
             } 
             )
         }
