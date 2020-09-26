@@ -1,6 +1,6 @@
 <template>
     
-        <div class="item"  v-bind:class="{'item--active': important}" >
+        <div class="item"  v-bind:class="{'item--active': important, 'item--archive': archive}" >
             <div class="item__up">
                 <template>
                     <div class="item__text" @dblclick="editItem" v-if="!editing">{{ text }}</div>
@@ -12,14 +12,14 @@
                     v-focus maxlength="50"></textarea>
                 </template>
                 
-                <button class="item__btn--important" @click="thisIsImportant"
-                ><i class="fas fa-bell item__bell" v-bind:class="{'item__bell--active': important}"></i></button>
+                <button class="item__btn--important" @click="thisIsImportant">
+                    <i class="fas fa-bell item__bell" v-bind:class="{'item__bell--active': important, 'btn__desactive': archive }"></i></button>
             </div>
             <div class="item__down">
                  <span class="item__date">{{ currentDate | niceDate }}</span>
                  <div class="item__btns">
-                     <button class="item__btn--archive"><i class="fas fa-plus-circle item__archive"></i></button>
-                     <button class="item__btn--remove" @click="removeItem(index)"><i class="fas fa-trash item__remove"></i></button>
+                     <button class="item__btn--archive" @click="addToArchive" v-bind:class="{'btn__desactive': important }"><i class="fas fa-plus-circle item__archive"></i></button>
+                     <button class="item__btn--remove" @click="removeItem(index)" v-bind:class="{'btn__desactive': important }"><i class="fas fa-trash item__remove"></i></button>
                  </div>
             </div>
            
@@ -46,6 +46,7 @@ export default {
            text: this.note.text,
            editing: this.note.editing,
            important: this.note.important,
+           archive: this.note.archive,
            beforeEdit: '',
            currentDate: new Date()
         }
@@ -80,7 +81,8 @@ export default {
                     id: this.id,
                     text: this.text,
                     editing: this.editing,
-                    important: this.important
+                    important: this.important,
+                    archive: this.archive
                 }
             })
         },
@@ -90,20 +92,34 @@ export default {
             this.editing = false;
         },
 
-        thisIsImportant() { 
+        thisIsImportant() {
             this.important = !this.important;
-            console.log(this.important);
             this.$emit('importantOrNot', {
                 'index': this.index,
                 'note': {
-                    id: this.id,
+                    id:this.id,
                     text: this.text,
                     editing: this.editing,
-                    important: this.important
+                    important: this.important,
+                    archive: this.archive
                 }
-            } 
-            )
+            });
+        },
+
+        addToArchive() {
+            this.archive = !this.archive;
+            this.$emit('archiveOrNot', {
+                'index': this.index,
+                'note': {
+                    id:this.id,
+                     text: this.text,
+                    editing: this.editing,
+                    important: this.important,
+                    archive: this.archive
+                }
+            })
         }
+
     }
 }
 </script>
@@ -122,6 +138,10 @@ export default {
 
         &--active {
             background-color: darken(#B3B20F, 10);
+        }
+
+        &--archive {
+            background-color: lighten(#F15822, 10);
         }
 
         &__text {
@@ -203,7 +223,7 @@ export default {
 
             &:hover {
                 
-                color: #D76B8B;
+                color: lighten( black, 20);
             }
         }
 
@@ -216,6 +236,10 @@ export default {
             }
             
         }
+    }
+
+    .btn__desactive {
+        display: none;
     }
 
 

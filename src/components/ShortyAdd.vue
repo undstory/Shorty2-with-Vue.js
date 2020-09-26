@@ -13,24 +13,24 @@
             </form>
             <div class="add__summary">
                 <h2>Summary:</h2>
-                <button class="add__btns add__btn--all" @click="filter = 'all'">
+                <button class="add__btns add__btn--all">
                     <span class="add__btns--info">All Notes</span>
-                    <span class="add__btns--how">{{ this.notes.length }}</span>
+                    <span class="add__btns--how">{{ howManyNotes }}</span>
                 </button>
-                <button class="add__btns add__btn--important" @click="filter = 'important'">
+                <button class="add__btns add__btn--important" >
                     <span class="add__btns--info">Important</span>
                     <span class="add__btns--how">{{ howManyImportant }}</span>
                 </button>
                 <button class="add__btns add__btn--archive">
                     <span class="add__btns--info">Archive</span>
-                    <span class="add__btns--how">8</span>
+                    <span class="add__btns--how">{{ howManyArchive }}</span>
                 </button>
                
             </div>
         </div>
             <div class="item__wrapper">
-                <shorty-item v-for="(note, index) in notesFiltered" :key="note.id" v-bind:note="note" v-bind:index="index" @removedItem="removeItem(index)"
-                @finishedEdit="finishedEdit" @importantOrNot="importantOrNot">
+                <shorty-item v-for="(note, index) in notes" :key="note.id" v-bind:note="note" v-bind:index="index" @removedItem="removeItem(index)"
+                @finishedEdit="finishedEdit" @importantOrNot="importantOrNot" @archiveOrNot="archiveOrNot">
                 <!-- <div>{{ note.text }} </div> -->
 
             </shorty-item>
@@ -60,30 +60,40 @@ export default {
                 'id': 1,
                 'text': 'Zajebiście ciekawa rzecz',
                 'editing': false,
-                'important': false
+                'important': false,
+                'archive': false
             }, 
                 {
                 'id': 2,
                 'text': "Kolejna wykurwista rzecz",
                 'editing': false,
-                'important': false
+                'important': false,
+                'archive': false
             }]
         }
     },
 
     computed: {
-            notesFiltered() {
-                if(this.filter == 'all') {
-                    return this.notes;
-                } else if(this.filter == 'important') {
-                    return this.notes.filter(note => note.important);
-                }
+            // notesFiltered() {
+            //     if(this.filter == 'all') {
+            //         return this.notes;
+            //     } else if(this.filter == 'important') {
+            //         return this.notes.filter(note => note.important);
+            //     }
 
-                return this.notes;
+            //     return this.notes;
+            // },
+
+            howManyNotes() {
+                return this.notes.length;
             },
 
             howManyImportant() {
                 return this.notes.filter(note => note.important).length;
+            },
+
+             howManyArchive() {
+                return this.notes.filter(note => note.archive).length;
             }
     },
     methods: {
@@ -97,7 +107,8 @@ export default {
                 id: this.noteId,
                 text: this.newNote,
                 editing: false,
-                important: false
+                important: false,
+                archive: false
             })
 
             this.newNote = '',
@@ -116,7 +127,11 @@ export default {
 
         importantOrNot(data) {
             this.notes.splice(data.index, 1, data.note);
-            console.log(this.notes.length);
+           
+        },
+
+        archiveOrNot(data) {
+            this.notes.splice(data.index, 1, data.note);
         }
     }
 }
