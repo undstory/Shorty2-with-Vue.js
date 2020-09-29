@@ -1,7 +1,7 @@
-<template>
+<template functional> <!-- komponent funkcyjny -->
   
     <header class="header">
-            <h1 class="header__title">{{ sitename }}</h1>
+            <h1 class="header__title">Shorty</h1>
     </header>
     
 </template>
@@ -9,11 +9,11 @@
 <script>
 export default {
   name: 'shorty-logo',
-  data() {
-    return {
-      sitename: 'Shorty'
-    }
-  }
+  // data() {
+  //   return {
+  //     sitename: 'Shorty'
+  //   }
+  // }
   
 }
 </script>

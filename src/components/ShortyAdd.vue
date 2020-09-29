@@ -13,9 +13,9 @@
             </form>
             <div class="add__summary">
                 <h2>Summary:</h2>
-                <button class="add__btns add__btn--all">
-                    <span class="add__btns--info">All Notes</span>
-                    <span class="add__btns--how">{{ howManyNotes }}</span>
+                 <button class="add__btns add__btn--all">
+                    <span class="add__btns--info">New Notes</span>
+                    <span class="add__btns--how">{{ howManyNewNotes }}</span>
                 </button>
                 <button class="add__btns add__btn--important" >
                     <span class="add__btns--info">Important</span>
@@ -25,7 +25,10 @@
                     <span class="add__btns--info">Archive</span>
                     <span class="add__btns--how">{{ howManyArchive }}</span>
                 </button>
-               
+                <button class="add__btns add__btn--all">
+                    <span class="add__btns--info">All Notes</span>
+                    <span class="add__btns--how">{{ howManyNotes }}</span>
+                </button>
             </div>
         </div>
             <div class="item__wrapper">
@@ -85,6 +88,10 @@ export default {
             // },
 
             howManyNotes() {
+                return this.notes.length;
+            },
+
+            howManyNewNotes() {
                 return this.notes.length;
             },
 
