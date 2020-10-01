@@ -2,7 +2,8 @@
   <div id="app">
     <div class="container">
       <shorty-logo></shorty-logo>
-      <shorty-add></shorty-add>
+      <!-- <shorty-add></shorty-add> -->
+      <router-view></router-view>
     </div>
   </div>
 </template>
