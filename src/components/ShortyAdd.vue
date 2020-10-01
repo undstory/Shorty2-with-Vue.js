@@ -13,22 +13,27 @@
             </form>
             <div class="add__summary">
                 <h2>Summary:</h2>
-                 <button class="add__btns add__btn--all">
+                <shorty-new :notes="notes"></shorty-new>
+                 <!-- <button class="add__btns add__btn--all">
                     <span class="add__btns--info">New Notes</span>
                     <span class="add__btns--how">{{ howManyNewNotes }}</span>
-                </button>
-                <button class="add__btns add__btn--important" >
+                </button> -->
+
+                <shorty-important :notes="notes"></shorty-important>
+                <!-- <button class="add__btns add__btn--important" >
                     <span class="add__btns--info">Important</span>
                     <span class="add__btns--how">{{ howManyImportant }}</span>
-                </button>
-                <button class="add__btns add__btn--archive">
+                </button> -->
+                <shorty-archive :notes="notes"></shorty-archive>
+                <!-- <button class="add__btns add__btn--archive">
                     <span class="add__btns--info">Archive</span>
                     <span class="add__btns--how">{{ howManyArchive }}</span>
-                </button>
-                <button class="add__btns add__btn--all">
+                </button> -->
+                <shorty-all :notes="notes"></shorty-all>
+                <!-- <button class="add__btns add__btn--all">
                     <span class="add__btns--info">All Notes</span>
                     <span class="add__btns--how">{{ howManyNotes }}</span>
-                </button>
+                </button> -->
             </div>
         </div>
             <div class="item__wrapper">
@@ -46,11 +51,20 @@
 <script>
 
 import ShortyItem from './ShortyItem.vue'
+import ShortyImportant from './ShortyImportant'
+import ShortyArchive from './ShortyArchive'
+import ShortyNew from './ShortyNew'
+import ShortyAll from './ShortyAll'
+
 
 export default {
     name: "shorty-add",
     components: {
-        ShortyItem
+        ShortyItem,
+        ShortyImportant,
+        ShortyArchive,
+        ShortyNew,
+        ShortyAll
     },
     data() {
         return {
@@ -87,21 +101,21 @@ export default {
             //     return this.notes;
             // },
 
-            howManyNotes() {
-                return this.notes.length;
-            },
+            // howManyNotes() {
+            //     return this.notes.length;
+            // },
 
-            howManyNewNotes() {
-                return this.notes.length;
-            },
+            // howManyNewNotes() {
+            //     return this.notes.length;
+            // },
 
-            howManyImportant() {
-                return this.notes.filter(note => note.important).length;
-            },
+            // howManyImportant() {
+            //     return this.notes.filter(note => note.important).length;
+            // },
 
-             howManyArchive() {
-                return this.notes.filter(note => note.archive).length;
-            }
+            //  howManyArchive() {
+            //     return this.notes.filter(note => note.archive).length;
+            // }
     },
     methods: {
         addNote() {
@@ -162,6 +176,7 @@ export default {
         &__summary {
             margin-left: 1rem;
             align-self: center;
+            
         }
 
         &__btns {
@@ -237,5 +252,11 @@ export default {
             justify-content: center;
             margin: 3rem 1rem;
         }
+    }
+
+    .link {
+        margin: 1rem;
+        display: block;
+        text-decoration: none;
     }
 </style>
